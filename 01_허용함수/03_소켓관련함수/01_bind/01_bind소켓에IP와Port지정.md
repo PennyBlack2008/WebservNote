@@ -128,3 +128,18 @@ if (-1 == connect(client_socket, (struct sockaddr*)&server_addr, sizeof(server_a
 
 6. socket 을 소멸하여 통신 작업을 완료합니다.
 ``close(client_socket);``
+
+### 실행 방법
+```
+]$ gcc server.c -o server    // 서버 프로그램을 server 이름으로 컴파일
+]$ gcc client.c -o client    // 클라이언트 프로그램을 client 이름으로 컴파일
+]$ ./server &                // 서브 프로그램을 백그라운드로 실행
+[1] 25869
+]$ ./client test_string      // 클라이언트를 문자열을 입력하여 실행
+receive: test_string
+11 : test_string
+]$ ./client forum.falinux.com
+receive: forum.falinux.com
+17 : forum.falinux.com
+]$
+```
