@@ -30,7 +30,7 @@ int main(void)
 		printf("bind() 실행 에러\n");
 		exit(1);
 	}
-	
+
 	/* 4. 듣는 소켓 듣기 */
 	if (-1 == listen(server_socket, 5))
 	{

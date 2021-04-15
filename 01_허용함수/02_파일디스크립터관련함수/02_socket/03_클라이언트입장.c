@@ -11,7 +11,7 @@ int main(int argc, char const *argv[])
 	struct sockaddr_in serv_addr;
 	char *hello = "Hello from client";
 	char buffer[1024] = {0};
-	
+
 	/* 1. 클라이언트 소켓 만들기 */
 	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 	{
@@ -24,7 +24,7 @@ int main(int argc, char const *argv[])
 
 	/* 중간 과정, IP 주소를 binary 형태로 변환 */
 	/* IPv4인 문자열 형태의 IP 주소 를 binary 로 변환하여, serv_addr.sin_addr 에 저장 */
-	if(inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)<=0) 
+	if(inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)<=0)
 	{
 		printf("\nInvalid address/ Address not supported \n");
 		return -1;

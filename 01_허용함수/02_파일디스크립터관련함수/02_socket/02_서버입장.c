@@ -14,7 +14,7 @@ int main(int argc, char const *argv[])
 	int addrlen = sizeof(address); // address 는 몇 바이트일까?
 	char buffer[1024] = {0}; // 무엇을 위한 buffer 인가?
 	char *hello = "Hello from server";
-	
+
 	/* 1. 서버 소켓 만들기 */
 	if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
 	{
@@ -37,7 +37,7 @@ int main(int argc, char const *argv[])
 	address.sin_port = htons( PORT );
 
 	/* 3. 서버 소켓과 주소 바인딩 */
-	if (bind(server_fd, (struct sockaddr *)&address, 
+	if (bind(server_fd, (struct sockaddr *)&address,
 								 sizeof(address))<0)
 	{
 		perror("bind failed");
@@ -45,7 +45,7 @@ int main(int argc, char const *argv[])
 	}
 
 	// 바인딩이 끝나면 이제 쓸만한 소켓이 된다.
-	
+
 	/* 4. 서버 소켓 queue 에 대기시키는 중 */
 	if (listen(server_fd, 3) < 0)
 	{
@@ -54,7 +54,7 @@ int main(int argc, char const *argv[])
 	}
 
 	/* 5. 연결용 소켓 만들고 그 소켓 fd 반환 */
-	if ((new_socket = accept(server_fd, (struct sockaddr *)&address, 
+	if ((new_socket = accept(server_fd, (struct sockaddr *)&address,
 					   (socklen_t*)&addrlen))<0)
 	{
 		perror("accept");
