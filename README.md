@@ -17,3 +17,5 @@ This is Webserv note. Who cares..
 1. sockaddr_in 구조체에서 sin_ 이라는 prefix 는 말 그대로 sockaddr_in 의 약어이다.
 
 ## 이해 안되는 것
+1. server_addr.sin_family = AF_INET // IPv4 <-- 이거는 htons 안 먹이네.. 왜지? 이론상으로는 그렇게 배웠는 데
+

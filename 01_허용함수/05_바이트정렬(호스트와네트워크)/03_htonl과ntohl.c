@@ -27,7 +27,8 @@ int main(int argc, char* argv[])
 	/* 5. 클라이언트 소켓 세팅 */
 	struct sockaddr_in clientaddr;
 	clientaddr.sin_family = AF_INET; // IPv4
-	clientaddr.sin_addr.s_addr = inet_addr("192.168.100.190"); // 주소
+	/* IP, port# 가 domain */
+	clientaddr.sin_addr.s_addr = inet_addr("192.168.100.190"); // 주소 inet_addr 이 빅엔디안으로 변환시켜준다.
 	clientaddr.sin_port = htons(atoi(argv[1])); // 포트 번호
 	int client_len = sizeof(clientaddr);
 	

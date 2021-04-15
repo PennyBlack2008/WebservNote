@@ -16,7 +16,6 @@ int main(int argc, char const *argv[])
 	char *hello = "Hello from server";
 	
 	/* 1. 서버 소켓 만들기 */
-	/* IPv4 의 TCP 소켓을 만들어준다 */
 	if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
 	{
 		perror("socket failed");
@@ -24,7 +23,6 @@ int main(int argc, char const *argv[])
 	}
 
 	/* 2. 서버 소켓 옵션선택 */
-	/* 재사용할 목적을 지닌 소켓으로 서버 소켓을 세팅해준다 */
 	if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
 												  &opt, sizeof(opt)))
 	{
@@ -36,7 +34,6 @@ int main(int argc, char const *argv[])
 	address.sin_family = AF_INET;
 	/* 서버의 IP주소를 자동으로 찾아서 대입해주는 상수 값 0 이다. */
 	address.sin_addr.s_addr = INADDR_ANY;
-	/* htons 로 IP 주소와 PORT 번호를 big endian 으로 바꿔줘야한다. */
 	address.sin_port = htons( PORT );
 
 	/* 3. 서버 소켓과 주소 바인딩 */
@@ -47,6 +44,8 @@ int main(int argc, char const *argv[])
 		exit(EXIT_FAILURE);
 	}
 
+	// 바인딩이 끝나면 이제 쓸만한 소켓이 된다.
+	
 	/* 4. 서버 소켓 queue 에 대기시키는 중 */
 	if (listen(server_fd, 3) < 0)
 	{
