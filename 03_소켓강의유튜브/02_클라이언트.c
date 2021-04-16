@@ -1,27 +1,31 @@
 #include <sys/socket.h>
+#include <netinet/ip.h>
 #include <sys/un.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <arpa/inet.h>
 #include <stdio.h>
 
-int main()
+int main(void)
 {
 	int sockfd;
 	int len;
-	struct sockaddr_un address; // <sys/un.h>
+	struct sockaddr_in address; // <sys/un.h>
 	int result;
 	char ch = 'A';
 
-	sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
+	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
-	address.sun_family = AF_UNIX; /* local to host (pipes) */
+	address.sin_family = AF_INET; /* local to host (pipes) */
+	address.sin_addr.s_addr = inet_addr("127.0.0.1");
+	address.sin_port = htons(9734);
 	len = sizeof(address);
 
 	result = connect(sockfd, (struct sockaddr*)&address, len);
 
 	if (result == -1)
 	{
-		perror("oops: client1");
+		perror("oops: client3");
 		exit(1);
 	}
 	write(sockfd, &ch, 1);

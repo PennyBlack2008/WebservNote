@@ -9,8 +9,8 @@
 
 int main(void)
 {
-	struct sockaddr_in client_addr;
-
+		struct sockaddr_in client_addr;
+		fd_set a;
 	/* 2. listen socket(듣는 소켓) 을 만들자. */
 	int server_socket = socket(AF_INET, SOCK_STREAM, 0);
 	if (-1 == server_socket)
