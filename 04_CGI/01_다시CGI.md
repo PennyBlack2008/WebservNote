@@ -42,7 +42,7 @@ CGI 를 웹서버에 적용하려면 웹 서버 config 를 설정해줘야한다
    Order allow,deny
    Allow from all
 </Directory>
- 
+
 <Directory "/var/www/cgi-bin">
    Options All
 </Directory>
@@ -66,7 +66,7 @@ int main () {
    cout << "<h2>Hello World! This is my first CGI program</h2>\n";
    cout << "</body>\n";
    cout << "</html>\n";
-   
+
    return 0;
 }
 ```
@@ -74,11 +74,11 @@ int main () {
 
 ## HTTP header
 
-**Content-type:text/html\r\n\r\n** 줄은 콘텐츠를 이해하기 위해 브라우저로 전송되는 HTTP 헤더이다. 
+**Content-type:text/html\r\n\r\n** 줄은 콘텐츠를 이해하기 위해 브라우저로 전송되는 HTTP 헤더이다.
 
 ```
 HTTP Field Name: Field Content
- 
+
 For Example
 Content-type: text/html\r\n\r\n
 ```
@@ -124,6 +124,7 @@ Content-type: text/html\r\n\r\n
 
 - ``1.`` CONTENT_TYPE
 	- 콘텐츠의 데이터 유형
+
 - ``2.`` CONTENT_LENGTH
 	- POST 요청에만 사용할 수 있는 query 정보의 길이
 		- (https://knight76.tistory.com/entry/30021323262)
@@ -131,6 +132,7 @@ Content-type: text/html\r\n\r\n
 			- HTTP 1.0 에서 CONTENT_LENGTH 가 없으면, user agent 가 의도와 다르게 처리할 수도 있다.
 		- 브라우저에 따라 query 길이를 제한하기도 한다.
 			- (https://codezip.tistory.com/741)
+
 - ``3.`` HTTP_COOKIE(참고용)
 	- 설정된 쿠키를 key & value 의 쌍으로 반환합니다.
 	- 환경 변수가 반환값을 도출해내는 것이 가능한지 모르겠다.
@@ -138,16 +140,16 @@ Content-type: text/html\r\n\r\n
 			- 이 환경변수를 사용한 예제들이 있는 데, 이것을 어떻게 만들까?
 				- (http://www.deadfire.net/cgic/cgic25.html)
 	- 대충 이런 식으로 동작하는 것같다. 내 수준으로 설명하자면 한 줄로 쫘악하고 세미콜론으로 분류. 직접 사용할 땐 ft_split 으로 한방에 해결되는 스트링인 듯
-	
+
 	- 예제
 
 		**코드**
-		
+
 		```
 		char* str;
 		str = getenv("HTTP_COOKIE");
 		```
-	
+
 		**결과**
 
 		```
@@ -160,7 +162,7 @@ Content-type: text/html\r\n\r\n
 			- (https://roadrunner.tistory.com/174)
 	- 환경변수 getenv() 함수로 HTTP_USER_AGENT 환경 변수 사용 예시
 		- (https://roadrunner.tistory.com/174)
-		
+
 		코드
 
 		```
@@ -173,6 +175,7 @@ Content-type: text/html\r\n\r\n
 		``접속자 브라우저 정보 : Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1``
 
 	- 접속자 브라우저 정보를 갖고 오는 함수가 있어서 이게 가능한 건가?
+
 - ``5.`` PATH_INFO
 	- url 에서 어떤 부분이 PATH_INFO 에 들어오는 지 알 수 있다.
 		- (https://blog.daum.net/jchern/13756884)
@@ -181,6 +184,7 @@ Content-type: text/html\r\n\r\n
 - ``6.`` GATEWAY_INTERFACE
 	- 서버의 CGI 타입과 버전
 		- 예) CGI/revision
+		- 예) CGI/1.1
 
 - ``7.`` PATH_TRANSLATED
 	- PATH_INFO 에 나타난 가상 경로(path) 를 실제의 물리적인 경로로 바뀐 값.
@@ -188,7 +192,7 @@ Content-type: text/html\r\n\r\n
 
 - ``8.`` QUERY_STRING
 	- URL 뒤에 추가된 데이터
-		- ex) ``http://some.machine/cgi-bin/name.pl?forune
+		- ex) ``http://some.machine/cgi-bin/name.pl?forune``
 			- 첫 번째 ? 뒤의 모든 데이터를 query string 이라고 한다.
 			- CGI 프로그램은 QUERY_STRING 환경변수로 query string 을 얻는다.
 	- (http://math.ewha.ac.kr/~jylee/CompMath.html/html.changwon/home5200.html)
@@ -206,16 +210,59 @@ Content-type: text/html\r\n\r\n
 	- HTML 폼이 사용하는 METHOD, 보통 GET 이나 POST
 
 - ``13.``REQUEST_URI
+	- 현재 페이지의 주소에서 도메인 제외
+	- 예시) ``index.phpuser=&name=``
 
 - ``14.``SCRIPT_NAME
+	- 사이트 도메인
+	- 예시) www.naver.com
 
 - ``15.``SERVER_PORT
 	- 클라이언트 요청을 보내는 포트 번호
+	- 예시) 80
 
 - ``16.``SERVER_PROTOCOL
-	- 클라이언트 요청이 사용하는 프로토콜. 보통 HTTP 1.0, 1.1
-	
+	- 클라이언트 요청이 사용하는 프로토콜.
+	- 예시) ``HTTP 1.0``
+	- 예시) ``HTTP 1.1``
+
 - ``17.``SERVER_SOFTWARE
+	- 예시) ``Apache1.3.23(UNIX) PHP4.12 mod_fastcgi2.2.10 mod_throttle3.1.2 mod_ssl2.8.6 OpenSSL0.9.6c
+
+## C++ CGI Library
+
+이게 뭐지... 당황스럽네 .. 이것을 사용해야하는 건가? 이거 공부해보기 계속 보다보면 뭔가 나오겠지
+
+https://www.gnu.org/software/cgicc/doc/index.html
+
+## GET and POST Methods
+
+ 브라우저에서 웹 서버로 그리고 궁극적으로 CGI 프로그램으로 일부 정보를 전달해야할 때, 브라우저는 GET 또는 POST 를 사용하여
+
+ 정보를 웹 서버에 전달합니다.
+
+## Passing Information Using GET Method
+
+ GET 메서드는 페이지 요청에 추가된 인코딩된 사용자 정보를 보낸다. 페이지와 인코딩된 정보는 '?' 로 구분된다.
+
+ ``http://www.test.com/cgi-bin/cpp.cgi?key1=value1&key2=value2``
+
+ GET 메서드는 브라우저에서 웹 서버로 정보를 전달하는 기본 방법이며, 브라우저의 Location:box 에 표시되는 긴 문자열을 생성한다.
+
+ 그래서 GET 메서드를 비밀번호나 민감한 정보들 전달할 때 사용하면 안된다. GET 메소드는 사이즈 제한이 있으며 당신은 1024개의 문자를 넘을 수 없다.
+
+ GET 메서드를 사용할 때는 정보는 QUERY_STRING http header를 사용하여 전달되며, QUERY_STRING 환경 변수를 통해 CGI 프로그램에서 액세스할 수 있습니다.
+
+ URL 과 함께 key 와 value 쌍을 연결하여 정보를 전달하거나 HTML <FORM> 태그를 사용하여 GET 메서드를 사용하여 정보를 전달할 수 있습니다.
+
+## Simple URL 예시 : GET Method
+
+ 다음은 GET 메서드를 사용하여 hello_get.py 프로그램에 두 값을 전달하는 간단한 url 입니다.
+
+ ``/cgi-bin/cpp_get.cgi?first_name=ZARA&last_name=ALI``
+
+ 다음은 웹 브라우저에서 제공하는 입력을 처리하기 위한 cpp_get.cgi CGI 프로그램을 생성하는 프로그램입니다. 전달 된 정보에 매우 쉽게 액세스 할 수 있는 C++ CGI 라이브러리를 사용할 것입니다.
+
 
 
 
