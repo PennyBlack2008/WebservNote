@@ -19,3 +19,6 @@ This is Webserv note. Who cares..
 
 ## 이해 안되는 것
 1. server_addr.sin_family = AF_INET // IPv4 <-- 이거는 htons 안 먹이네.. 왜지? 이론상으로는 그렇게 배웠는 데
+
+## 대충 넘어간 것
+- 함수 ioctl 의 사용방법 및 구현 방법
