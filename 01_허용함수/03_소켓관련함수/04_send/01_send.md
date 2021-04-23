@@ -1,4 +1,5 @@
 #Send
+
 링크 : https://www.joinc.co.kr/w/man/2/send
 
 소켓으로 데이터를 전송한다.
@@ -17,3 +18,5 @@
 
 MSG_OOB(0x1) : OOB 데이터를 전송한다.
 MSG_DONTWAIT(0x80) : 비 봉쇄. 작동하게 하려면 fcntl(2) 로 O_NONBLOCK 설정 필수
+
+man 3 send

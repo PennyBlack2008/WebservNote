@@ -22,3 +22,7 @@ This is Webserv note. Who cares..
 
 ## 대충 넘어간 것
 - 함수 ioctl 의 사용방법 및 구현 방법
+
+커밋 규칙
+
+https://www.notion.so/Git-5d3f373195754de1a344e972b054aacf
