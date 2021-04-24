@@ -3,7 +3,6 @@
 void	fill_head(char *header)
 {
 	char	str[60] = "HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: ";
-	ft_memset(str, 0, 60);
 
 	for (int i = 0 ; i < 58 ; i++)
 		header[i] = str[i];

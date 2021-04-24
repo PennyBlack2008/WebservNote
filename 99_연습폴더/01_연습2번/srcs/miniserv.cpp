@@ -9,11 +9,11 @@ int		setup_server(void)
 	ft_memset((char *)&address, 0, sizeof(address));
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = htonl(INADDR_ANY);
-	address.sin_port = htons(8080);
+	address.sin_port = htons(8079);
 
 	server_fd = socket(AF_INET, SOCK_STREAM, 0);
-	// int opt = 1; // 소켓을 재사용하려면 희한하게도 1로 설정해야한다. 
-	// setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+	int opt = 1; // 소켓을 재사용하려면 희한하게도 1로 설정해야한다. 
+	setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 	if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0)
 		printf(" error binding ");
 	listen(server_fd, 10);
