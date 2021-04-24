@@ -12,7 +12,10 @@ int		setup_server(void)
 	address.sin_port = htons(8080);
 
 	server_fd = socket(AF_INET, SOCK_STREAM, 0);
-	bind(server_fd, (struct sockaddr *)&address, sizeof(address));
+	// int opt = 1; // 소켓을 재사용하려면 희한하게도 1로 설정해야한다. 
+	// setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+	if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0)
+		printf(" error binding ");
 	listen(server_fd, 10);
 	return (server_fd);
 }
@@ -28,7 +31,7 @@ void	accept_request(int server_fd)
 	ft_memset(buffer, 0, 50000);
 	recv(socket_fd, buffer, 50000, 0); // read(socket_fd, buffer, 50000);
 	make_header(buffer, "index.html");
-	send(socket_fd, buffer, 7, 0); // write(socket_fd, buffer, 7);
+	send(socket_fd, buffer, 50000, 0); // write(socket_fd, buffer, 7);
 	close(socket_fd);
 }
 
