@@ -31,6 +31,7 @@ void	accept_request(int server_fd)
 	ft_memset(buffer, 0, 50000);
 	recv(socket_fd, buffer, 50000, 0); // read(socket_fd, buffer, 50000);
 	make_header(buffer, "index.html");
+	printf("Sending index.html...\n"); // 브라우저로 접속 시 반복해서 실행된다.
 	send(socket_fd, buffer, 50000, 0); // write(socket_fd, buffer, 7);
 	close(socket_fd);
 }

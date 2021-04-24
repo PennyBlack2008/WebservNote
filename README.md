@@ -26,3 +26,5 @@ This is Webserv note. Who cares..
 커밋 규칙
 
 https://www.notion.so/Git-5d3f373195754de1a344e972b054aacf
+
+cbe6613bd84b16c9094232517bea2ca7a683c4d2
