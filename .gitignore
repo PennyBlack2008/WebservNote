@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# 이 부분은 집에서 하기
+cgicc
+miniserv
