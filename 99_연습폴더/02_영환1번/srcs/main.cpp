@@ -5,7 +5,7 @@
 #include <string.h>	//	FIXME	나중에 지우기 테스트용 for memset
 
 // #define BUFFER_SIZE 65536
-#define BUFFER_SIZE 1000
+#define BUFFER_SIZE 100
 int main()
 {
 	// Create a socket (IPv4, TCP)
@@ -13,6 +13,7 @@ int main()
 	size_t connections;
 	int bytesRead = BUFFER_SIZE - 1;
 	char buffer[BUFFER_SIZE];
+	std::string requested_buff = "";
 	while (1)
 	{
 		bytesRead = BUFFER_SIZE - 1;
@@ -23,21 +24,22 @@ int main()
 		while (bytesRead == BUFFER_SIZE - 1)
 		{
 			memset(buffer, 0, BUFFER_SIZE);	//	REVIEW : 전체 탐색하는 것들은 성능 개선의 여지가 있음
-			bytesRead = read(connections, buffer, BUFFER_SIZE);
+			bytesRead = read(connections, buffer, BUFFER_SIZE - 1);
 			if (bytesRead == -1)
-			{	
 				std::cerr << "Could not read request." << std::endl;
-			}
-			std::cout << "BytesRead is : " << bytesRead << "\n";
+			std::cout << "BytesRead is : " << bytesRead << " buffer is " << std::string(buffer) << "\n";
+			requested_buff += std::string(buffer);
 		}
 		if (bytesRead != -1)
 		{
-		//	STUB : HttpMessageRequest
-			HttpMessageRequest	request(buffer);
+			std::cout << "hello\n";
+			//	STUB : HttpMessageRequest
+			// test = requested_buffer.c_str();
+			HttpMessageRequest	request((char*)requested_buff.c_str());
 			request.Parser();
+			//	STUB : HttpMessageResponse
 			HttpMessageResponse	response(request);
 			response.SetMessage();
-			//	STUB : HttpMessageResponse
 
 			int len = response.GetMessage().size();
 			int ret = send(connections, response.GetMessage().c_str(), len, 0);
@@ -45,6 +47,5 @@ int main()
 		}
 		close(connections);
 	}
-	// Close the connections
 	close(socket.GetFd());
 }
